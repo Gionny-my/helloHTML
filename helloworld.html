@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>HelloWorld</title>
+    <style type="text/css">
+        /* #div1 {width:350px;height:70px;padding:10px;border:1px solid #ff0000;} */
+        div {
+            border: 0;
+            margin: auto;
+            padding: 0;
+        }
+        #div1 {
+            width: 600px;
+            height: 400px;
+            background-color:#000000;
+            text-align: center;
+        }
+        #button_play_video {
+            margin: auto;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+        
+        function drag(ev) {
+            ev.dataTransfer.setData("Text",ev.target.id);
+        }
+        
+        function drop(ev) {
+            ev.preventDefault();
+            var data=ev.dataTransfer.getData("Text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+        function main() {
+            document.getElementById("div1").innerHTML = "<button id='button_play_video' onclick='start()'>播放</button>"
+        }
+        function start() {
+            showVideo("video/video1.mp4", main);
+        }
+        function showVideo(scoure, nextFunction) {
+            document.getElementById("div1").innerHTML = "<video id='video' src='" + scoure + "'>该浏览器不支持播放</video>";
+            var video = document.getElementById("video");
+            video.play();
+            video.addEventListener('ended', nextFunction, false);
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+
+    </div>
+    <script>
+        main();
+    </script>
+ 
+    <!-- <p>拖动 RUNOOB.COM 图片到矩形框中:</p>
+    
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <br>
+    <img loading="lazy" id="drag1" src="images/logo.png" draggable="true" ondragstart="drag(event)" width="336" height="69"> -->
+ 
+</body>
+</html>
