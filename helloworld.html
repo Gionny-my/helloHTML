@@ -14,47 +14,88 @@
             width: 600px;
             height: 400px;
             background-color:#000000;
-            text-align: center;
+            /* text-align: center; */
+            position: relative;
         }
         #button_play_video {
-            margin: auto;
+            position: absolute;
+            left: 45%;
+            right: 45%;
+            top: 45%;
+        }
+        button.choose {
+            /* margin: auto; */
+            /* position: fixed; */
+            position: absolute;
+            left: 0;
+            top: 0px;
+        }
+        #video {
+            width: 100%;
+            height: 100%;
+        }
+        #btn2 {
+            left: 40%;
+            top: 50%;
+        }
+        #btn3 {
+            left: 60%;
+            top: 50%;
         }
     </style>
     <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
+        // function allowDrop(ev) {
+        //     ev.preventDefault();
+        // }
         
-        function drag(ev) {
-            ev.dataTransfer.setData("Text",ev.target.id);
-        }
+        // function drag(ev) {
+        //     ev.dataTransfer.setData("Text",ev.target.id);
+        // }
         
-        function drop(ev) {
-            ev.preventDefault();
-            var data=ev.dataTransfer.getData("Text");
-            ev.target.appendChild(document.getElementById(data));
-        }
+        // function drop(ev) {
+        //     ev.preventDefault();
+        //     var data=ev.dataTransfer.getData("Text");
+        //     ev.target.appendChild(document.getElementById(data));
+        // }
         function main() {
-            document.getElementById("div1").innerHTML = "<button id='button_play_video' onclick='start()'>播放</button>"
+            document.getElementById("div1").innerHTML = "<button id='button_play_video' onclick='showVideo1()'>播放</button>"
         }
-        function start() {
-            showVideo("video/video1.mp4", main);
-        }
-        function showVideo(scoure, nextFunction) {
-            document.getElementById("div1").innerHTML = "<video id='video' src='" + scoure + "'>该浏览器不支持播放</video>";
+        function showVideo(scoure, func) {
+            var div = document.getElementById("div1");
+            div.innerHTML = "<video id='video' src='" + scoure + "'>该浏览器不支持播放</video>";
             var video = document.getElementById("video");
             video.play();
-            video.addEventListener('ended', nextFunction, false);
+            video.addEventListener("end", func, false);
+        }
+        function addBtn(index, content) {
+            document.getElementById("div1").innerHTML += "<button id='btn" + index + "' class='choose' onclick='showVideo" + index + "()'>" + content + "</button>";
+        }
+        function showVideo1() {
+            showVideo("videos/video1.mp4", function() {
+                document.getElementById("div1").innerHTML += "<button id='button_play_video' onclick='showVideo1()'>播放</button>"
+                addBtn("2", "2");
+                addBtn("3", "3");
+            })
+        }
+        function showVideo2() {
+            showVideo("videos/video2.mp4", function() {
+                main();
+            })
+        }
+        function showVideo3(){
+            showVideo("videos/video3.mp4", function() {
+                main();
+            })
         }
     </script>
 </head>
 <body>
     <div id="div1">
-
+        <button id="button_play_video" onclick="showVideo1()">播放</button>
     </div>
-    <script>
+    <!-- <script>
         main();
-    </script>
+    </script> -->
  
     <!-- <p>拖动 RUNOOB.COM 图片到矩形框中:</p>
     
